@@ -1,11 +1,15 @@
-import {coffeeAction, coffeeState} from "../../types/coffee";
+import {CoffeeAction, CoffeeActionTypes, coffeeState} from "../../types/coffee";
 
 const initialState: coffeeState = {
     listCoffee: [],
 }
 
-export const coffeeReducer = (state = initialState, action: coffeeAction): coffeeState => {
+export const coffeeReducer = (state = initialState, action: CoffeeAction): coffeeState => {
     switch (action.type) {
+        case CoffeeActionTypes.GET_COFFEE:
+            return {
+                listCoffee: action.payload,
+            }
         default:
             return state;
     }

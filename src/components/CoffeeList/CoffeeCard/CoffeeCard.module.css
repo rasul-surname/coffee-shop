@@ -1,0 +1,22 @@
+.card {
+    width: 100%;
+    height: 100%;
+}
+.card__content {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.card__origin {
+    max-height: 100%;
+    min-height: 90px;
+}
+.card__origin:not(:first-child) {
+    border-top: 1px solid #ccc;
+}
+.card__notes {
+    margin-right: 10px;
+    margin-top: 10px;
+}
