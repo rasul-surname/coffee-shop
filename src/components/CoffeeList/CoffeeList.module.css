@@ -5,6 +5,15 @@
     grid-gap: 30px;
 }
 
+.loader {
+    width: 100%;
+    min-height: 30vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (min-width: 1000px) and (max-width: 1200px) {
     .content {
         grid-template-columns: repeat(3, 1fr);
