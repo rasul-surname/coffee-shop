@@ -6,7 +6,9 @@ function App() {
   return (
     <>
         <Header />
-        <CoffeeList />
+        <main className="content">
+            <CoffeeList />
+        </main>
     </>
   );
 }
