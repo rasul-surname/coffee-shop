@@ -1,0 +1,14 @@
+.loader {
+    width: 100%;
+    min-height: 30vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}

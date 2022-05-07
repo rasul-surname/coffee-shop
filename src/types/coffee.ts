@@ -1,6 +1,8 @@
 export interface coffeeState {
     listCoffee: any[];
     loading: boolean;
+    amountCoffeePage: number;
+    amountPages: number;
 }
 
 export enum CoffeeActionTypes {
