@@ -13,10 +13,58 @@
     padding: 0px 15px;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
     font-family: "Montserrat Medium";
     letter-spacing: 1.2px;
     color: #fff;
+}
+.header__cash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header__cashTitle {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    margin-right: 20px;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    background-color: #fff;
+    border: 2px solid #535353;
+    border-radius: 8px;
+    padding: 40px;
+}
+.modal__table {
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+.modal__btn {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 500px) {
+    .header__content h1 {
+        font-size: 22px;
+        margin-right: 20px;
+    }
+    .modal {
+        width: 320px;
+        padding: 20px 2px
+    }
+    .modal__btn {
+        margin: 0px 10px;
+    }
 }
