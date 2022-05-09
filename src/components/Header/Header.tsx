@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 
@@ -9,21 +9,49 @@ import {Box, Button, Modal, TableCell, TableHead, TableRow, Typography} from "@m
 import Badge from '@mui/material/Badge';
 
 import {deleteProductBasket, buyAllBasket, deleteAllBasket} from "../../store/action-creators/cash";
+import AlertComponent from '../AlertComponent/AlertComponent';
 import classes from './Header.module.css';
 
 const Header = () => {
     const dispatch = useDispatch();
     const {cash, basket} = useTypedSelector(state => state.cash);
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+	
+	const [typeAlert, setTypeAlert] = useState<any>("");
+	const [valueAlert, setValueAlert] = useState("");
+	const [visibleAlert, setVisibleAlert] = useState(false);
+
+    const handleOpen = () => {
+		setVisibleAlert(false);
+		setOpen(true);
+	};
     const handleClose = () => setOpen(false);
 
     function deleteBasket(id: number) {
+		setVisibleAlert(false);
         dispatch(deleteProductBasket(id));
     }
 
     function buyAllProducts() {
-        dispatch(buyAllBasket());
+		const sumAllProducts = basket.reduce((sum, product) => {
+			return sum += product.price * product.count;
+		}, 0);
+
+		if(sumAllProducts === 0) {
+			setTypeAlert("warning");
+			setValueAlert("Корзина пустая!");
+			setVisibleAlert(true);
+		} else if(sumAllProducts < cash) {
+			dispatch(buyAllBasket());
+			
+			setTypeAlert("success");
+			setValueAlert("Заказ успешно оформлен");
+			setVisibleAlert(true);
+		} else if(sumAllProducts > cash) {
+			setTypeAlert("warning");
+			setValueAlert("Недостаточно средств!");
+			setVisibleAlert(true);
+		}
     }
 
     function deleteAllProducts() {
@@ -49,6 +77,7 @@ const Header = () => {
                         aria-describedby="modal-modal-description"
                     >
                         <Box className={classes.modal}>
+							<AlertComponent type={typeAlert} value={valueAlert} visible={visibleAlert} setVisibleAlert={setVisibleAlert} />
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 Корзина
                             </Typography>
@@ -82,10 +111,10 @@ const Header = () => {
                             </div>
                             <div className={classes.modal__btn}>
                                 <Button variant="outlined" onClick={() => deleteAllProducts()}>
-                                    Удалить все
+                                    Очистить
                                 </Button>
                                 <Button variant="outlined" onClick={() => buyAllProducts()}>
-                                    Купить все
+                                    Оформить
                                 </Button>
                             </div>
                         </Box>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 import {Button, Card, CardContent, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -7,6 +8,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 
 import {addProductBasket, buyProduct} from "../../../store/action-creators/cash";
+import AlertComponent from '../../AlertComponent/AlertComponent';
 import classes from './CoffeeCard.module.css';
 
 interface InterfaceCoffeeCard {
@@ -19,9 +21,14 @@ interface InterfaceCoffeeCard {
 
 const CoffeeCard: React.FC<InterfaceCoffeeCard> = (props) => {
     const dispatch = useDispatch();
+    const {cash} = useTypedSelector(state => state.cash);
     const {id, title, origin, notes, price} = props;
     const [count, setCount] = useState<number>(1);
     const notesList = notes.split(",");
+
+	const [typeAlert, setTypeAlert] = useState<any>("");
+	const [valueAlert, setValueAlert] = useState("");
+	const [visibleAlert, setVisibleAlert] = useState(false);
 
     function addCount() {
         setCount(count + 1);
@@ -34,7 +41,19 @@ const CoffeeCard: React.FC<InterfaceCoffeeCard> = (props) => {
     }
     
     function buyCoffee(price: number) {
-        dispatch(buyProduct(count * price));
+		const sumProducts = price * count;
+
+		if(sumProducts < cash) {
+			dispatch(buyProduct(count * price));
+			
+			setTypeAlert("success");
+			setValueAlert("Заказ успешно оформлен");
+			setVisibleAlert(true);
+		} else if(sumProducts > cash) {	
+			setTypeAlert("warning");
+			setValueAlert("Недостаточно средств!");
+			setVisibleAlert(true);
+		}
     }
 
     function addBasket(id: number, title: string, price: number) {
@@ -43,6 +62,7 @@ const CoffeeCard: React.FC<InterfaceCoffeeCard> = (props) => {
 
     return (
         <Card className={classes.card} key={id}>
+			<AlertComponent type={typeAlert} value={valueAlert} visible={visibleAlert} setVisibleAlert={setVisibleAlert} />
             <CardContent className={classes.card__content}>
                 <Typography className={classes.card__origin} gutterBottom variant="h4" component="div">
                     {title}
