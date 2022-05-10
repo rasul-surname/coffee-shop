@@ -1,5 +1,5 @@
 export interface coffeeState {
-    listCoffee: any[];
+    listCoffee: {id: number, blend_name: string, notes: string, origin: string}[][];
     loading: boolean;
 	error: null | string;
     amountCoffeePage: number;

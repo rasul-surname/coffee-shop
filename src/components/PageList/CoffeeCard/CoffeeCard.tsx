@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
@@ -29,6 +29,11 @@ const CoffeeCard: React.FC<InterfaceCoffeeCard> = (props) => {
 	const [typeAlert, setTypeAlert] = useState<any>("");
 	const [valueAlert, setValueAlert] = useState("");
 	const [visibleAlert, setVisibleAlert] = useState(false);
+
+	
+	useEffect(() => {
+		setCount(1);
+	}, [id])
 
     function addCount() {
         setCount(count + 1);

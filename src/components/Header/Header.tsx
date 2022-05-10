@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 
@@ -81,7 +81,7 @@ const Header = () => {
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 Корзина
                             </Typography>
-                            <div className={classes.modal__table}>
+                            <div className={classes.modal__tableHead}>
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Название</TableCell>
@@ -91,12 +91,12 @@ const Header = () => {
                                 </TableHead>
                                 {basket.map((elem: {id: number, title: string, price: number, count: number}) => {
                                         return (
-                                            <TableRow>
+                                            <TableRow className={classes.modal__tableBody}>
                                                 <TableCell component="th" scope="row">
                                                     {elem.title}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    {elem.price} &#8381;
+                                                    {elem.price}&nbsp;&#8381;
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {elem.count}
@@ -108,14 +108,14 @@ const Header = () => {
                                         )
                                     })
                                 }
-								<TableRow>
-									<TableCell className={classes.modal__tableAmount} component="th" scope="row">
+								<TableRow className={classes.modal__tableAmount}>
+									<TableCell component="th" scope="row">
 										Итого: 
                                 	</TableCell>
-									<TableCell className={classes.modal__tableAmount} component="th" scope="row">
-										{totalPriceProducts} &#8381;
+									<TableCell component="th" scope="row">
+										{totalPriceProducts}&nbsp;&#8381;
                                 	</TableCell>
-									<TableCell className={classes.modal__tableAmount} component="th" scope="row">
+									<TableCell component="th" scope="row">
 										{totalNumberProducts}
                                 	</TableCell>
 								</TableRow>

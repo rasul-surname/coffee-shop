@@ -75,7 +75,9 @@ export const cashReducer = (state = initialState, action: CashAction): cashState
             return {
                 ...state,
                 cash: state.cash - sumAllProducts,
-                basket: []
+                basket: [],
+				totalPriceProducts: 0,
+				totalNumberProducts: 0
             }
         case CashActionTypes.DELETE_ALL_BASKET:
             return {...state, basket: []}

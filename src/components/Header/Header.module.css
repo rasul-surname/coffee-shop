@@ -50,10 +50,10 @@
     overflow-y: auto;
     margin-bottom: 20px;
 }
-.modal__table thead th {
+.modal__tableHead thead th {
 	font-weight: bold;
 }
-.modal__tableAmount {
+.modal__tableAmount th {
 	font-weight: bold;
 }
 .modal__btn {
@@ -71,7 +71,24 @@
         width: 320px;
         padding: 20px 2px
     }
+	.modal__tableHead thead th {
+		font-size: 12px;
+	}
+	.modal__tableBody th {
+		font-size: 12px;
+	}
     .modal__btn {
-        margin: 0px 10px;
+        margin: 20px 10px;
     }
+}
+@media (max-width: 380px) {
+	.modal__tableHead thead th {
+		font-size: 12px;
+	}
+	.modal__tableBody th {
+		font-size: 12px;
+	}
+	.modal__tableAmount th {
+		font-size: 12px;
+	}
 }
