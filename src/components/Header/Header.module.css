@@ -50,7 +50,14 @@
     overflow-y: auto;
     margin-bottom: 20px;
 }
+.modal__table thead th {
+	font-weight: bold;
+}
+.modal__tableAmount {
+	font-weight: bold;
+}
 .modal__btn {
+	margin-top: 20px;
     display: flex;
     justify-content: space-between;
 }

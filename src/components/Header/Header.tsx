@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 
@@ -14,7 +14,7 @@ import classes from './Header.module.css';
 
 const Header = () => {
     const dispatch = useDispatch();
-    const {cash, basket} = useTypedSelector(state => state.cash);
+    const {cash, totalPriceProducts, totalNumberProducts, basket} = useTypedSelector(state => state.cash);
     const [open, setOpen] = React.useState(false);
 	
 	const [typeAlert, setTypeAlert] = useState<any>("");
@@ -96,7 +96,7 @@ const Header = () => {
                                                     {elem.title}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    {elem.price}
+                                                    {elem.price} &#8381;
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {elem.count}
@@ -108,6 +108,17 @@ const Header = () => {
                                         )
                                     })
                                 }
+								<TableRow>
+									<TableCell className={classes.modal__tableAmount} component="th" scope="row">
+										Итого: 
+                                	</TableCell>
+									<TableCell className={classes.modal__tableAmount} component="th" scope="row">
+										{totalPriceProducts} &#8381;
+                                	</TableCell>
+									<TableCell className={classes.modal__tableAmount} component="th" scope="row">
+										{totalNumberProducts}
+                                	</TableCell>
+								</TableRow>
                             </div>
                             <div className={classes.modal__btn}>
                                 <Button variant="outlined" onClick={() => deleteAllProducts()}>

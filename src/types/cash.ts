@@ -1,5 +1,7 @@
 export interface cashState {
     cash: number;
+	totalPriceProducts: number;
+	totalNumberProducts: number;
     basket: {id: number, title: string, price: number, count: number}[];
 }
 

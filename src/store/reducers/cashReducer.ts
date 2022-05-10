@@ -2,6 +2,8 @@ import {CashAction, CashActionTypes, cashState} from "../../types/cash";
 
 const initialState: cashState = {
     cash: 2000,
+	totalPriceProducts: 0,
+	totalNumberProducts: 0,
     basket: [],
 }
 
@@ -42,7 +44,13 @@ export const cashReducer = (state = initialState, action: CashAction): cashState
 
             return {
                 ...state,
-                basket: newBasket
+                basket: newBasket,
+				totalPriceProducts: newBasket.reduce((sum, product) => {
+					return sum += product.price * product.count;
+				}, 0),
+				totalNumberProducts: newBasket.reduce((sum, product) => {
+					return sum += product.count;
+				}, 0)
             }
         case CashActionTypes.DELETE_PRODUCT_BASKET:
             const filterBasket = state.basket.filter((product) => {
@@ -51,7 +59,13 @@ export const cashReducer = (state = initialState, action: CashAction): cashState
 
             return {
                 ...state,
-                basket: filterBasket
+                basket: filterBasket,
+				totalPriceProducts: filterBasket.reduce((sum, product) => {
+					return sum += product.price * product.count;
+				}, 0),
+				totalNumberProducts: filterBasket.reduce((sum, product) => {
+					return sum += product.count;
+				}, 0)
             }
         case CashActionTypes.BUY_ALL_BASKET:
             const sumAllProducts = state.basket.reduce((sum, product) => {
