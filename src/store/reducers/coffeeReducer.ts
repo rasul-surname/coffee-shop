@@ -3,6 +3,7 @@ import {CoffeeAction, CoffeeActionTypes, coffeeState} from "../../types/coffee";
 const initialState: coffeeState = {
     listCoffee: [],
     loading: false,
+	error: null,
     amountCoffeePage: 4,
     amountPages: 0,
 }
@@ -28,6 +29,12 @@ export const coffeeReducer = (state = initialState, action: CoffeeAction): coffe
             return {
                 ...state,
                 loading: true,
+            }
+		case CoffeeActionTypes.GET_COFFEE_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+				loading: false,
             }
         default:
             return state;

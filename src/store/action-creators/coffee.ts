@@ -13,7 +13,7 @@ export const getCoffeeList = () => {
                 dispatch({type: CoffeeActionTypes.GET_COFFEE, payload: payload});
             }, 3000);
         } catch (e) {
-
+			dispatch({type: CoffeeActionTypes.GET_COFFEE_ERROR, payload: 'Error 404'});
         }
     }
 }

@@ -7,6 +7,20 @@
     align-items: center;
 }
 
+.error {
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.notData {
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
