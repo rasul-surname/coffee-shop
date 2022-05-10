@@ -1,16 +1,19 @@
 import React, {useEffect} from 'react';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useDispatch} from "react-redux";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {getCoffeeList} from "../../store/action-creators/coffee";
-import {CircularProgress, Pagination} from "@mui/material";
+
+import {Pagination} from "@mui/material";
+
 import Page from "./Page/Page";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
 import classes from './PageList.module.css';
 
 const PageList = () => {
+	const  dispatch = useDispatch();
     const {listCoffee, loading, error, amountPages} = useTypedSelector(state => state.coffee);
     const [page, setPage] = React.useState<number>(1);
-    const  dispatch = useDispatch();
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
@@ -23,15 +26,10 @@ const PageList = () => {
     return (
         <>
             {loading ?
-                <div className={classes.loader}>
-                    <CircularProgress />
-                </div>
+                <Loader />
                 :
 				error ? 
-				<div className={classes.error}>
-					<ErrorOutlineIcon />
-					{error}
-				</div> 
+				<Error children={error} />
 				:
 				listCoffee.length > 0 ?
                 <>
@@ -39,9 +37,7 @@ const PageList = () => {
                     <Page listCoffee={listCoffee} page={page} />
                 </>
 				: 
-				<div className={classes.notData}>
-					<p>Нет данных</p>
-				</div>
+				<Error children={'Нет данных'} />
             }
         </>
     );

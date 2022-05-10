@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import {addProductBasket, buyProduct} from "../../../store/action-creators/cash";
 
-import {Button, Card, CardContent, Typography} from "@mui/material";
+import {Card, CardContent, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 
-import {addProductBasket, buyProduct} from "../../../store/action-creators/cash";
 import AlertComponent from '../../AlertComponent/AlertComponent';
+import ButtonComponent from '../../ButtonComponent/ButtonComponent';
+
 import classes from './CoffeeCard.module.css';
 
 interface InterfaceCoffeeCard {
@@ -21,16 +23,17 @@ interface InterfaceCoffeeCard {
 
 const CoffeeCard: React.FC<InterfaceCoffeeCard> = (props) => {
     const dispatch = useDispatch();
+
     const {cash} = useTypedSelector(state => state.cash);
     const {id, title, origin, notes, price} = props;
+	const notesList = notes.split(",");
+
     const [count, setCount] = useState<number>(1);
-    const notesList = notes.split(",");
 
 	const [typeAlert, setTypeAlert] = useState<any>("");
 	const [valueAlert, setValueAlert] = useState("");
 	const [visibleAlert, setVisibleAlert] = useState(false);
 
-	
 	useEffect(() => {
 		setCount(1);
 	}, [id])
@@ -77,32 +80,43 @@ const CoffeeCard: React.FC<InterfaceCoffeeCard> = (props) => {
                 </Typography>
                 <Typography className={classes.card__origin} variant="body2" color="text.secondary">
                     {notesList.map((elem: string, index: number) => {
-                        return (
-                            <Button key={index} size="small" color="success">
-                                #{elem}
-                            </Button>
+                        return (	
+							<ButtonComponent 
+								children={'#' + elem} 
+								size="small"
+								color="success"
+								onClick={() => deleteCount()} 
+							/>
                         )
-                    })}
+                    })}	
                 </Typography>
                 <Typography className={classes.card__origin + ' ' + classes.card__cash} variant="body2" color="text.secondary">
                     <div className={classes.card__cashCount}>
-                        <Button variant="text" onClick={deleteCount}>
-                            <RemoveIcon />
-                        </Button>
-                        <div>
+						<ButtonComponent 
+							children={<RemoveIcon />} 
+							type="text"
+							onClick={() => deleteCount()} 
+						/>
+                        <>
                             {count}
-                        </div>
-                        <Button variant="text" onClick={addCount}>
-                            <AddIcon />
-                        </Button>
+                        </>
+						<ButtonComponent 
+							children={<AddIcon />} 
+							type="text"
+							onClick={() => addCount()} 
+						/>
                     </div>
                     <div className={classes.card__cashBasket}>
-                        <Button variant="outlined" onClick={() => buyCoffee(price)}>
-                            <p>{price} &#8381;</p>
-                        </Button>
-                        <Button variant="outlined" onClick={() => addBasket(id, title, price)}>
-                            <ShoppingBasketIcon />
-                        </Button>
+						<ButtonComponent 
+							children={<p>{price} &#8381;</p>} 
+							type="outlined"
+							onClick={() => buyCoffee(price)} 
+						/>
+						<ButtonComponent 
+							children={<ShoppingBasketIcon />} 
+							type="outlined"
+							onClick={() => addBasket(id, title, price)} 
+						/>
                     </div>
                 </Typography>
             </CardContent>

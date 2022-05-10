@@ -3,7 +3,7 @@ import CoffeeCard from "../CoffeeCard/CoffeeCard";
 import classes from './Page.module.css';
 
 interface InterfacePage {
-    listCoffee: any[];
+    listCoffee: {id: number, blend_name: string, notes: string, origin: string}[][];
     page: number;
 }
 

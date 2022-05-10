@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {deleteProductBasket, buyAllBasket, deleteAllBasket} from "../../store/action-creators/cash";
 
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import ClearIcon from '@mui/icons-material/Clear';
-import {Box, Button, Modal, TableCell, TableHead, TableRow, Typography} from "@mui/material";
+import {Box, Modal, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import Badge from '@mui/material/Badge';
 
-import {deleteProductBasket, buyAllBasket, deleteAllBasket} from "../../store/action-creators/cash";
 import AlertComponent from '../AlertComponent/AlertComponent';
+import ButtonComponent from '../ButtonComponent/ButtonComponent';
+
 import classes from './Header.module.css';
 
 const Header = () => {
@@ -121,12 +123,16 @@ const Header = () => {
 								</TableRow>
                             </div>
                             <div className={classes.modal__btn}>
-                                <Button variant="outlined" onClick={() => deleteAllProducts()}>
-                                    Очистить
-                                </Button>
-                                <Button variant="outlined" onClick={() => buyAllProducts()}>
-                                    Оформить
-                                </Button>
+								<ButtonComponent 
+									children={'Очистить'} 
+									type="outlined"
+									onClick={() => deleteAllProducts()} 
+								/>
+								<ButtonComponent 
+									children={'Оформить'} 
+									type="outlined"
+									onClick={() => buyAllProducts()} 
+								/>
                             </div>
                         </Box>
                     </Modal>

@@ -80,7 +80,7 @@ export const cashReducer = (state = initialState, action: CashAction): cashState
 				totalNumberProducts: 0
             }
         case CashActionTypes.DELETE_ALL_BASKET:
-            return {...state, basket: []}
+            return {...state, basket: [], totalPriceProducts: 0, totalNumberProducts: 0}
         default:
             return state;
     }

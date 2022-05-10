@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
+
 import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
-import { Button, Modal } from '@mui/material';
+import { Modal } from '@mui/material';
+
+import ButtonComponent from '../ButtonComponent/ButtonComponent';
 
 interface InterfaceAlertComponent {
 	type: any;
@@ -34,7 +37,11 @@ const AlertComponent: React.FC<InterfaceAlertComponent> = (props) => {
 				>
 					<Stack sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center' }} spacing={2}>
 						<Alert style={{ }} severity={type}>{value}</Alert>
-						<Button onClick={handleClose} variant="contained">Хорошо, спасибо</Button>
+						<ButtonComponent 
+							children={'Хорошо, спасибо'} 
+							type="contained"
+							onClick={() => handleClose()} 
+						/>
 					</Stack>
 				</Modal>
 			
